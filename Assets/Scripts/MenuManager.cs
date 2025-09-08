@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DifficultyButton : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     private Button button;
-    private GameManager gameManger;
     public float difficulty;
 
     // Start is called before the first frame update
@@ -20,9 +17,12 @@ public class DifficultyButton : MonoBehaviour
 
     void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
-        gameManger = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameManger.StartGame(difficulty);
+        if (DataPersistanceManager.Instance != null)
+        {
+            DataPersistanceManager.Instance.difficulty = difficulty;
+            DataPersistanceManager.Instance.isGameActive = true;
+            SceneManager.LoadScene("GameScene");
+        }
     }
 
     public void ExitGame()
