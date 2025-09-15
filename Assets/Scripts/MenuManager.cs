@@ -12,7 +12,14 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(StartGame);
+        if (difficulty == 0)
+        {
+            button.onClick.AddListener(ExitGame);
+        }
+        else
+        {
+            button.onClick.AddListener(StartGame);
+        }
     }
 
     void StartGame()

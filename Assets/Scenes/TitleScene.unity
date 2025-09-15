@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 354141178}
   - component: {fileID: 354141177}
   - component: {fileID: 354141176}
+  - component: {fileID: 354141179}
   m_Layer: 5
   m_Name: exit
   m_TagString: Untagged
@@ -937,7 +938,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -997,6 +998,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354141174}
   m_CullTransparentMesh: 1
+--- !u!114 &354141179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354141174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8316e6d7747ff00a0ef5e5f41ca6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 0
 --- !u!1001 &405249267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1179,7 +1193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8316e6d7747ff00a0ef5e5f41ca6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0.15
+  difficulty: 0.43
 --- !u!114 &734537760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,7 +1974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8316e6d7747ff00a0ef5e5f41ca6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0.075
+  difficulty: 0.27
 --- !u!114 &1581040317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2735,7 +2749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8316e6d7747ff00a0ef5e5f41ca6c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0.025
+  difficulty: 0.1
 --- !u!1 &2084131477
 GameObject:
   m_ObjectHideFlags: 0

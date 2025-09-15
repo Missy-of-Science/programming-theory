@@ -1,16 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isGameActive;
-
     public GameObject raindrops;
-
     public GameObject cloud;
-
+    private Counter counter;
     private float horizontalInput;
 
     [SerializeField]
@@ -18,47 +14,65 @@ public class GameManager : MonoBehaviour
     Vector3 cloud_size;
 
     // Start is called before the first frame update
-    public void StartGame(float difficulty)
+    public void Start()
     {
-        isGameActive = true;
         cloud_size = cloud.GetComponent<Renderer>().bounds.size;
-        StartCoroutine(MakeItRain(difficulty));
+        counter = GameObject.Find("Plane").GetComponent<Counter>();
+        StartCoroutine(MakeItRain());
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        cloud.transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
-        if (cloud.transform.position.x < 17)
+        if (
+            DataPersistanceManager.Instance != null
+            && DataPersistanceManager.Instance.isGameActive == true
+        )
         {
-            cloud.transform.position = new Vector3(
-                17,
-                cloud.transform.position.y,
-                cloud.transform.position.z
-            );
-        }
-        else if (cloud.transform.position.x > 25)
-        {
-            cloud.transform.position = new Vector3(
-                25,
-                cloud.transform.position.y,
-                cloud.transform.position.z
-            );
+            if (!counter.gameStarted)
+            {
+                counter.StartGame();
+            }
+            MoveCloud();
         }
     }
 
-    IEnumerator MakeItRain(float difficulty)
+    IEnumerator MakeItRain()
     {
-        while (isGameActive)
+        while (DataPersistanceManager.Instance.isGameActive)
         {
-            yield return new WaitForSeconds(difficulty);
+            yield return new WaitForSeconds(DataPersistanceManager.Instance.difficulty);
             Vector3 cloud_pos = cloud.transform.position;
             float zpos = Random.Range(cloud_pos.z - cloud_size.z, cloud_pos.z + cloud_size.z);
             Instantiate(
                 raindrops,
                 new Vector3(cloud_pos.x, cloud_pos.y, zpos),
                 raindrops.transform.rotation
+            );
+        }
+    }
+
+    private void MoveCloud()
+    {
+        int maxLeft = 17;
+        int maxRight = 25;
+
+        horizontalInput = Input.GetAxis("Horizontal");
+        cloud.transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+        if (cloud.transform.position.x < maxLeft)
+        {
+            cloud.transform.position = new Vector3(
+                maxLeft,
+                cloud.transform.position.y,
+                cloud.transform.position.z
+            );
+        }
+        else if (cloud.transform.position.x > maxRight)
+        {
+            cloud.transform.position = new Vector3(
+                maxRight,
+                cloud.transform.position.y,
+                cloud.transform.position.z
             );
         }
     }
