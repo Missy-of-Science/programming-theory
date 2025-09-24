@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,29 +13,34 @@ public class Counter : MonoBehaviour
     public TextMeshProUGUI gameWonText;
 
     public bool gameStarted = false;
-    private int level = 0;
-    private int time = 20;
+    private int percentage = 0;
+    private int time = 25;
 
-    [SerializeField]
-    int allFlowers;
-    int hiddenFlowers;
+    private List<GameObject> plants = new List<GameObject>();
+    private int allPlants;
+    private int growingPlants;
 
     public void StartGame()
     {
         gameStarted = true;
-        hiddenFlowers = allFlowers;
+        foreach (GameObject fooObj in GameObject.FindGameObjectsWithTag("Plant"))
+        {
+            plants.Add(fooObj);
+        }
+        allPlants = plants.Count;
+        growingPlants = allPlants;
         StartCoroutine(Timer());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        GrowPlants(other.gameObject.transform.position, 0.5f);
+        GrowPlants(other.gameObject.transform.position, 0.6f);
 
         Destroy(other.gameObject);
-        if (level < 100)
+        if (percentage < 100)
         {
-            level = 100 * (allFlowers - hiddenFlowers) / allFlowers;
-            CounterText.text = $"Flowers grown: {level}%";
+            percentage = 100 * (allPlants - growingPlants) / allPlants;
+            CounterText.text = $"Plants grown: {percentage}%";
         }
         else if (DataPersistanceManager.Instance.isGameActive)
         {
@@ -47,13 +53,17 @@ public class Counter : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         foreach (var collider in hitColliders)
         {
-            if (collider.gameObject.CompareTag("Plant"))
+            Plant plant = collider.gameObject.GetComponent<Plant>();
+            if (plant)
             {
-                MeshRenderer renderer = collider.GetComponent<MeshRenderer>();
-                if (!renderer.enabled)
+                if (!plant.GetFullyGrown())
                 {
-                    hiddenFlowers -= 1;
-                    renderer.enabled = true;
+                    plant.Grow();
+                }
+                else
+                {
+                    plants.Remove(collider.gameObject);
+                    growingPlants = plants.Count;
                 }
             }
         }
