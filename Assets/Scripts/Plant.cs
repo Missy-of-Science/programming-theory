@@ -5,7 +5,7 @@ public abstract class Plant : MonoBehaviour
     private Vector3 _growth;
     public Vector3 growth
     {
-        get { return _growth; }
+        get { return _growth; } // ENCAPSULATION
         set { _growth = value; }
     }
 

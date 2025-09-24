@@ -48,7 +48,7 @@ public class Counter : MonoBehaviour
         }
     }
 
-    void GrowPlants(Vector3 center, float radius)
+    void GrowPlants(Vector3 center, float radius) //ABSTRACTION
     {
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         foreach (var collider in hitColliders)
@@ -58,7 +58,7 @@ public class Counter : MonoBehaviour
             {
                 if (!plant.GetFullyGrown())
                 {
-                    plant.Grow();
+                    plant.Grow(); //ABSTRACTION
                 }
                 else
                 {

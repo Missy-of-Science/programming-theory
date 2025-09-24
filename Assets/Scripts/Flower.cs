@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Flower : Plant
+public class Flower : Plant // INHERITANCE
 {
     Material[] materials;
     private Color blossom;
@@ -19,7 +19,7 @@ public class Flower : Plant
         }
     }
 
-    public override void Grow()
+    public override void Grow() // POLYMORPHISM
     {
         transform.localScale += growth;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Mushroom : Plant
+public class Mushroom : Plant // INHERITANCE
 {
     void Awake()
     {
